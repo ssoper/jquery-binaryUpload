@@ -27,10 +27,10 @@
           $('#progress-bar').fadeOut('slow');
         },
         onError: function(evt) {
-          console.log('Error');
+          alert('Error uploading file');
         },
         onBrowserIncompatible: function() {
-          alert('Bad browser')
+          alert('Bad browser');
         },
         fields: {
           'authenticity_token': 'fake-token',
