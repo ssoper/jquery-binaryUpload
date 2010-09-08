@@ -8,7 +8,8 @@ $(function() {
       onError: null,
       onBrowserIncompatible: null,
       url: null,
-      fields: {}
+      fields: {},
+      method: 'POST'
     }
     var opts = $.extend(defaults, options);
     opts.fileField = $(this).attr('name') || 'file';
@@ -30,7 +31,7 @@ $(function() {
           formData.append(k, v);
         });
 
-        req.open('POST', opts.url);
+        req.open(opts.method, opts.url);
         req.setRequestHeader('Cache-Control', 'no-cache');
         req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         req.setRequestHeader('X-File-Name', file.fileName);
@@ -54,7 +55,7 @@ $(function() {
         })
         body += '--\r\n';
 
-        req.open('POST', opts.url, true);
+        req.open(opts.method, opts.url, true);
         req.setRequestHeader('Accept', 'text/javascript');
         req.setRequestHeader('content-type', 'multipart/form-data; boundary=' + boundary);
         req.sendAsBinary(body);
