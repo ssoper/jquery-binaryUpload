@@ -17,10 +17,17 @@ $(function() {
     $(this).change(function(evt) {
       var req = new XMLHttpRequest();
 
-      req.upload.addEventListener('progress', opts.onProgress, false);
-      req.upload.addEventListener('loadstart', opts.onStart, false);
-      req.upload.addEventListener('load', opts.onFinish, false);
-      req.upload.addEventListener('error', opts.onError, false);
+      if ($.isFunction(opts.onProgress))
+        req.upload.addEventListener('progress', opts.onProgress, false);
+
+      if ($.isFunction(opts.onStart))
+        req.upload.addEventListener('loadstart', opts.onStart, false);
+
+      if ($.isFunction(opts.onFinish))
+        req.upload.addEventListener('load', opts.onFinish, false);
+
+      if ($.isFunction(opts.onError))
+        req.upload.addEventListener('error', opts.onError, false);
 
       if (window.FormData) {
         var formData = new FormData();
