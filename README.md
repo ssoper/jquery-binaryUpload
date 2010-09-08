@@ -16,5 +16,7 @@ The plugin is self-documenting with descriptive event names each of which takes 
 
     The HTTP method to be used. Default is POST.
 
+The parameter name sent to the server will be taken from the name attribute of the input field. If the name attribute does not exist then 'file' will be used instead.
+
 The included sample shows a typical implementation. Ruby and Sinatra are required to run the sample.
 
