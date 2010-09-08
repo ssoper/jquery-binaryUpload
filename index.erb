@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <title>Asynchronous File Upload</title>
+  <meta name="charset" content="UTF-8" />
+  <link href="styles.css" rel="stylesheet" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+  <script src="jquery.binaryUpload.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#upload_data').binaryUpload({
+        url: $('#upload_data').parent('form').attr('action'),
+        onProgress: function(evt) {
+          if (evt.lengthComputable) {
+            var percentComplete = parseInt(Number((evt.loaded/evt.total) * 100).toFixed())  
+            $('#progress').html(percentComplete + '%');
+          }
+        },
+        onStart: function(evt) {
+          $('#progress').html('0%');
+        },
+        onFinish: function(evt) {
+          $('#progress').html('100%');
+        },
+        onError: function(evt) {
+          $('#progress').html('Error');
+        },
+        onBrowserIncompatible: function() {
+          $('#progress').html('Bad browser');
+        },
+        fields: {
+          'authenticity_token': 'fake-token',
+          'format': 'js'
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+
+<form action="/upload" method="post">
+  <input id="upload_data" name="uploaded_file" type="file" />
+</form>
+
+<br/>
+<h1 id="progress">0%</h1>
+
+</body>
+</html>
