@@ -36,7 +36,9 @@ def kilo(n)
 end
 
 def uploaded_files_path
-  File.join(File.dirname(__FILE__), 'uploaded_files')
+  path = File.join(File.dirname(__FILE__), 'uploaded_files')
+  FileUtils.mkdir(path) unless File.exist?(path)
+  path
 end
 
 class Hash
