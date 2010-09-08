@@ -72,6 +72,8 @@ $(function() {
     if (typeof(window.FormData) == 'undefined' && typeof(File) == 'undefined') {
       $.isFunction(opts.onBrowserIncompatible) && opts.onBrowserIncompatible.call();
     }
+
+    return this;
   }
 
 });
