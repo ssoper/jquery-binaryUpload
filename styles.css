@@ -1,5 +1,12 @@
-h1 {
+body {
   font-family: 'Lucida Grande', 'Helvetica', 'Arial';
+}
+
+h1 {
   font-size: 16pt;
   color: #777;
+}
+
+ol {
+  font-size: 12pt;
 }

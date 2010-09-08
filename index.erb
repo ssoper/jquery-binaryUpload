@@ -7,6 +7,15 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
   <script src="jquery.binaryUpload.js" type="text/javascript"></script>
   <script type="text/javascript">
+    function uploadedFiles() {
+      $.getJSON('/uploads', function(data) {
+        $('ol#uploaded_files li').remove()
+        $.each(data, function(k, v) {
+          $('ol#uploaded_files').append('<li>' + v.name + ' (' + v.size + ')</li>')
+        })
+      })
+    }
+  
     $(document).ready(function() {
       $('#upload_data').binaryUpload({
         url: $('#upload_data').parent('form').attr('action'),
@@ -21,6 +30,7 @@
         },
         onFinish: function(evt) {
           $('#progress').html('100%');
+          uploadedFiles();
         },
         onError: function(evt) {
           $('#progress').html('Error');
@@ -29,10 +39,13 @@
           $('#progress').html('Bad browser');
         },
         fields: {
+          // Useful for Rails apps
           'authenticity_token': 'fake-token',
           'format': 'js'
         }
       });
+
+      uploadedFiles();
     });
   </script>
 </head>
@@ -43,6 +56,10 @@
 </form>
 
 <h1 id="progress">0%</h1>
+
+Uploaded files
+<ol id="uploaded_files">
+</ol>
 
 </body>
 </html>
